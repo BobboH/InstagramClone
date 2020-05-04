@@ -28,6 +28,7 @@ public class Login extends AppCompatActivity {
     protected TextView txtName;
     protected TextView txtKickSpeed;
     protected TextView txtKickPower;
+    private Button btnTransition;
     private String allKickBoxers;
 
 
@@ -35,6 +36,7 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        btnTransition = findViewById(R.id.btnNextActivity);
         edtName = findViewById(R.id.edtName);
         edtKickPower = findViewById(R.id.edtKickPower);
         edtKickSpeed = findViewById(R.id.edtKickSpeed);
@@ -52,6 +54,8 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
                 allKickBoxers = "";
                 ParseQuery<ParseObject> queryAll = ParseQuery.getQuery("KickBoxer");
+                queryAll.whereGreaterThanOrEqualTo("kickPower",99);
+                queryAll.setLimit(2);
                 queryAll.findInBackground(new FindCallback<ParseObject>() {
                     @Override
                     public void done(List<ParseObject> objects, ParseException e) {
@@ -80,6 +84,12 @@ public class Login extends AppCompatActivity {
 //                        }
 //                    }
 //                });
+            }
+        });
+        btnTransition.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }
