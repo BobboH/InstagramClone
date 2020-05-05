@@ -41,26 +41,34 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
         switch(view.getId()){
             case R.id.btnLoginLogin:
+               if(edtLoginPassword.getText().toString().equals("")
+                       || edtLoginEmail.getText().toString().equals("")){
 
-                ParseUser.logInInBackground(edtLoginEmail.getText().toString(),
-                        edtLoginPassword.getText().toString(), new LogInCallback() {
-                    @Override
-                    public void done(ParseUser user, ParseException e) {
-                        if(e==null && user !=null) {
-                            Toast.makeText(LogInActivity.this,
-                                    "User " + user.getUsername().toString() +
-                                            " Successfully Logged In",Toast.LENGTH_LONG).show();;
-                        }else{
-                            Toast.makeText(LogInActivity.this,
-                                    "Login Failed",Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
+                   Toast.makeText(LogInActivity.this,
+                           "You must enter an Email addres and a Password",
+                           Toast.LENGTH_LONG).show();;
+               }else {
+
+                   ParseUser.logInInBackground(edtLoginEmail.getText().toString(),
+                           edtLoginPassword.getText().toString(), new LogInCallback() {
+                               @Override
+                               public void done(ParseUser user, ParseException e) {
+                                   if (e == null && user != null) {
+                                       Toast.makeText(LogInActivity.this,
+                                               "User " + user.getUsername().toString() +
+                                                       " Successfully Logged In", Toast.LENGTH_LONG).show();
+                                       transitionToSocialMediaActivity();
+                                   } else {
+                                       Toast.makeText(LogInActivity.this,
+                                               "Login Failed", Toast.LENGTH_LONG).show();
+                                   }
+                               }
+                           });
+               }
                 break;
             case R.id.btnLoginSignUp:
                 Intent intent = new Intent(LogInActivity.this,SignUp.class);
-
-
+                startActivity(intent);
                 break;
         }
     }
@@ -68,5 +76,10 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         InputMethodManager inputMethodManager =
                 (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
+    }
+
+    private void transitionToSocialMediaActivity(){
+        Intent intent = new Intent(LogInActivity.this,SocialMediaActivity.class);
+        startActivity(intent);
     }
 }

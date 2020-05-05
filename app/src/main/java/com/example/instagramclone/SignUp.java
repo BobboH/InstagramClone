@@ -54,9 +54,10 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
             }
         });
 
-        if(ParseUser.getCurrentUser() !=null) {
-            ParseUser.getCurrentUser().logOut();
-        }
+//        if(ParseUser.getCurrentUser() !=null) {
+//           // ParseUser.getCurrentUser().logOut();
+//            transitionToSocialMediaActivity();
+//        }
     }
 
     @Override
@@ -84,7 +85,10 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                             progressDialog.dismiss();
                             if (e == null) {
                                 Toast.makeText(SignUp.this,
-                                        "User " + appUser.getUsername().toString() + " signed Up!", Toast.LENGTH_SHORT).show();
+                                        "User " + appUser.getUsername().toString()
+                                                + " signed Up!", Toast.LENGTH_SHORT).show();
+                                transitionToSocialMediaActivity();
+
                             } else {
                                 Toast.makeText(SignUp.this,
                                         "Failed to Sign Up User: " + appUser.getUsername().toString()
@@ -92,6 +96,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                             }
                         }
                     });
+       //             transitionToSocialMediaActivity();
                 }
                 break;
             case R.id.btnLogIn:
@@ -100,5 +105,14 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                 break;
         }
     }
+    public void rootLayoutClick(View view){
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
+    }
 
+    private void transitionToSocialMediaActivity(){
+        Intent intent = new Intent(SignUp.this,SocialMediaActivity.class);
+        startActivity(intent);
+    }
 }
