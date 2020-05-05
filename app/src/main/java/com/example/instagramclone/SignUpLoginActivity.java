@@ -1,5 +1,6 @@
 package com.example.instagramclone;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -48,6 +49,8 @@ public class SignUpLoginActivity extends AppCompatActivity {
                     @Override
                     public void done(ParseException e) {
                         if(e==null){
+                            Intent intent = new Intent(SignUpLoginActivity.this,WelcomeActivity.class);
+                            startActivity(intent);
                             FancyToast.makeText(SignUpLoginActivity.this,
                                     "SignUp succeeded!",
                                     FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
@@ -75,6 +78,8 @@ public class SignUpLoginActivity extends AppCompatActivity {
                             FancyToast.makeText(SignUpLoginActivity.this,
                                     "Login succeeded!",
                                     FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
+                            Intent intent = new Intent(SignUpLoginActivity.this,WelcomeActivity.class);
+                            startActivity(intent);
                         }else
                             FancyToast.makeText(SignUpLoginActivity.this,
                                     "Login failed!" + e.getMessage(),
